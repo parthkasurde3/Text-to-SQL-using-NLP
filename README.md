@@ -24,32 +24,61 @@ Try out queries like:
 ## 🧠 How It Works
 
 - Accepts user input in natural language
-- Processes language structure and intent
-- Uses a custom parser and thesaurus for matching
-- Converts input to a valid SQL query
-- Executes query on the sample database (`school.db`)
+- Parses the sentence using a custom NLP pipeline
+- Maps user intent to SQL clauses
+- Executes queries on a sample SQLite database (`school.db`)
+- Displays results in a web-based interface
 
 ---
 
-## 📂 Project Structure
+## 📁 Project Structure
 
 ```
-ln2sql/                 → Core engine (parser, query builder)
-static/, templates/     → Flask frontend assets
-school.db               → Sample database
-tests/                  → Unit tests
-app.py                  → Entry point for the web app
+text-to-sql/
+├── app.py                         # Main Flask application
+├── setup.py, setup.cfg           # Project setup files
+├── Makefile, .travis.yml         # Build and CI configs
+├── school.db                     # Sample SQLite database
+├── user-system.sql               # SQL schema for database
+├── output.json                   # Sample output storage
+├── requirements.txt              # Project dependencies
+├── README.md                     # Project documentation
+│
+├── ln2sql/                       # Core logic package
+│   ├── __init__.py, main.py      # Entry and routing
+│   ├── ln2sql.py                 # NLP to SQL engine
+│   ├── parser.py, query.py       # Parsing and query logic
+│   ├── column.py, table.py       # DB structure representation
+│   ├── stopwordFilter.py         # Stopword processing
+│   ├── constants.py, thesaurus.py# Utilities
+│   ├── database.py               # DB interaction logic
+│   ├── ln2sql_gui.py             # GUI app (optional)
+│   ├── database_store/           # DB schema files
+│   │   └── school.sql
+│   ├── lang_store/               # Language mappings
+│   ├── stopwords/                # Stopword lists
+│   └── thesaurus_store/          # Thesaurus data files
+│
+├── static/                       # Web UI assets
+│   ├── images/                   # Images for UI
+│   └── style.css                 # CSS styles
+│
+├── templates/                    # HTML templates
+│   ├── home.html
+│   ├── login.html
+│   ├── register.html
+│   ├── predict.html
+│   └── test.html
+│
+└── tests/                        # Unit tests
+    ├── test_thesaurus.py
+    ├── test_unit.py
+    └── test_utils.py
 ```
 
 ---
 
 ## 🚀 Getting Started
-
-### 🔧 Requirements
-- Python 3.8+
-- Flask
-- SQLAlchemy (if extending)
-- nltk
 
 ### 📦 Installation
 
@@ -60,20 +89,21 @@ pip install -r requirements.txt
 python app.py
 ```
 
-The app will launch locally on `http://127.0.0.1:5000/`
+Visit the app at `http://127.0.0.1:5000/`
 
 ---
 
 ## ✅ Features
 
 - 🔤 Multilingual stopword support (English, French, more)
-- 💬 Fuzzy name matching (e.g., starts with, like)
-- 🖼 Web-based interface
-- 🧪 Unit tested modules
+- 💬 Fuzzy name matching (e.g., LIKE, starts with)
+- 🖼 Clean, responsive web interface
+- 🧪 Unit tested backend logic
+- 🧠 NLP-driven SQL generation without needing SQL skills
 
 ---
 
-## 🧪 Running Tests
+## 🧪 Run Tests
 
 ```bash
 python -m unittest discover tests
@@ -83,10 +113,10 @@ python -m unittest discover tests
 
 ## 📄 License
 
-MIT License – use freely with attribution.
+This project is licensed under the MIT License.
 
 ---
 
 ## 👏 Credits
 
-This project is inspired by the idea of bridging the gap between non-technical users and databases. Built with ❤️ using Python and Flask.
+Built with ❤️ using Python, Flask, and SQL. Inspired by the need to make databases more accessible for everyone.
