@@ -1,0 +1,50 @@
+<!doctype html>
+<title>Speech to text</title>
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+
+<form method="POST" action="/Speech">
+	<div class="login">
+		<div class="login-screen">
+			<div class="app-title">
+				<h1>Speech to text</h1>
+			</div>
+			<div class="login-form">
+                <input type="submit" value="Click to start" class="btn btn-primary btn-large btn-block">
+                <br>
+                <hr/>
+                <br>
+                <b>
+                    <a>
+                        <u>
+                            SPOKEN TEXT :- 
+                        </u>
+                    </a>
+                </b>
+                <label id="lbl_Output">{{ Output }}</label>
+                <br><br>
+                <b>
+                    <a>
+                        <u>
+                            SQL QUERY :- 
+                        </u>
+                    </a>
+                </b>                
+                <label id="lbl_OutputSQL">{% if OutputQuery %}{{ OutputQuery }}{% else %}No query generated{% endif %}</label>
+                <br>
+                <hr>
+                <div style="width:100%">
+                    {% if tables %}
+                        {% for table in tables %}
+                            {{ titles[loop.index] }}
+                            {{ table|safe }}
+                        {% endfor %}
+                    {% else %}
+                        No tables to display
+                    {% endif %}
+                </div>
+                <br>
+                <input type="text" name="inputText" placeholder="Enter text here">
+			</div>
+		</div>
+	</div>
+</form>
