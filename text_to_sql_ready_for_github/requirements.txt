@@ -1,3 +1,0 @@
-Flask
-sqlparse
-nltk
